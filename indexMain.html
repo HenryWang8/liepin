@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0px;padding: 0px;}
+			#continer{width: 100%;height: 1800px;}
+			#header{position: relative; background-color: #222;width: 100%;height: 50px;}
+			#header01{color: #eee;width: 980px;height: 50px;margin: 0 auto;}
+			
+			#body{width: 980px;height: 1700px;margin: 0 auto;}  /*background-color: red;*/
+			#body01{position: absolute;left: 0px;width:100%;height: 290px;}  /*background-color: green;*/
+			#bodyPoint{width: 130px;height: 16px;position: absolute;left:45%;top: 240px;}
+			#bodyPoint *{display: inline-block;margin: 0px 5px;}
+			
+			#body02{position: absolute;top: 370px; width: 980px;height:90px;}   /*background-color: green;*/
+			#body02Job p span{background-color:#fff;border: 1px solid #f2f2f2;color: #333;display: inline-block;height: 26px;
+    			line-height: 26px;padding: 0 6px;margin: 0px 1px; font-size: 16px;text-align: center;}
+    		#body02Class a{margin: 10px 10px 0px 0px;float: left;}
+    		
+    		#body03{position: absolute;top: 475px;width: 980px;height: 40px;margin: 0 auto;}   /*background-color: green;*/
+    		#body03 a{padding: 8px 0px 8px 28px;float: left;}
+    		#body03 a img{float: left;}
+    		#body03 a b{float: left;margin: 4px 0px 0px 0px; padding: 0px 29px 0px 12px;border-right: 1px #ccc dashed;}
+    		
+    		.body041{position: absolute;top: 550px; height: 358px;width:980px;}
+    		.body041Left{width: 250px;height: 353px;background-color:#f5f5f5;float: left;}
+    		.body041Left .body041Left1{width: 204px;height: 353px;padding:0px 23px;}
+    		.body041Left .body041Left1 h3{font-size: 24.5px;color: #3ca2f2;height: 40px; line-height: 40px;margin: 10px 0px; display: inline-block;cursor: pointer;}
+    		.body041Left .body041Left1 .itcla{border-top: 1px dashed #CCCCCC;border-bottom: 1px dashed #CCCCCC;padding: 8px 0px;}
+    		.body041Left .body041Left1 .itcla a{font-size: 14px; width: 95px;height: 31px;display: inline-block;cursor: pointer; min-width: 95px;line-height: 31px;vertical-align: middle;text-decoration: none;}
+    		.body041Left .body041Left1 .itpro a{cursor: pointer;display: inline-block;font-size: 14px;height: 31px;line-height: 31px;width:60px;min-width:60px;}
+    		.body041Left .body041Left1 .itInter{background-color: #fff;width: 204px; height: 40px;line-height: 40px;border-radius: 5px;
+								text-align: center;margin: 16px 0px;color: red;box-shadow: #CCCCCC 2px 2px 2px 0px;}
+			.body041Right{float: left;width: 729px;height: 357px;border-top: 1px solid #eee;border-bottom: 1px solid #eee;border-right: 1px solid #eee;}
+			.body041Right img{width: 100px;height: 50px;margin: 5px 0px;float: left;}
+			.body041Right p{height: 20px;line-height: 20px;font-size: 12px;}
+			.body041Right div{float: left; margin: 0px 0px 0px 30px;}
+			.body041Right ul li{float: left;list-style: none;width: 337px;height:62px;padding: 13px 17px 13px 10px;border-top: 1px solid #eee;}		
+			
+			.body042{position: absolute;top: 933px; height: 358px;width:980px;}
+			.body043{position: absolute;top: 1316px; height: 358px;width:980px;}
+			
+			#body05{position: absolute;top: 1710px; height: 60px;width:980px;border-top: 1px solid #999;}
+			#body05 *{display: inline-block;line-height: 60px;font-size: 12px;color: #999;}
+			#body06{position: absolute;top: 1770px; height: 60px;width:980px;border-top: 1px solid #999;padding: 15px 0px;}
+			#body06 *{display: inline-block;line-height: 30px;font-size: 12px;color: #999;}
+			#body07{position: absolute;top: 1830px; height: 60px;width:980px;border-top: 1px solid #999;margin: 15px 0px;padding: 15px 0px;}
+			#body07 *{display: inline-block;line-height: 30px;font-size: 12px;color: #999;}
+		</style>
+		<script src="js/jquery-1.8.2.min.js"type="text/javascript"></script>
+		<script type="text/javascript">
+			var target0 = 20,target1 = 20;
+			var aim=20;
+			
+			var interval;
+			var i;
+			function cycle(){
+				var lun = document.getElementsByClassName("lun");
+				var point = document.getElementsByClassName("point");
+				for(i = 0;i<lun.length;i++){
+					if((lun[i].style.display == "block") && (point[i].style.opacity ==1)){
+						lun[i].style.display = "none";
+						point[i].style.opacity = 0.3;
+						if((i+1) == lun.length){
+							lun[0].style.display = "block";
+							point[0].style.opacity = 1;
+							return false;
+						}else{
+							lun[i+1].style.display="block";
+							point[i+1].style.opacity = 1;
+							return false;
+						}
+					}
+				}
+			}
+			
+			//轮播中点击小圆点对应轮播图片
+			$(function(){
+				$(".point").click(function(event){
+//					alert(event.target.id);
+					window.clearInterval(interval);
+					$(event.target).siblings().each(function(index,data){
+						data.style.opacity = 0.3;
+//						alert($(".lun").eq(data.id).attr("id"));
+						$(".lun").eq(data.id).hide();
+					});
+					event.target.style.opacity = 1;
+					$(".lun").eq(event.target.id).show();
+					interval =window.setInterval("cycle()",1500);
+				});
+				
+				var list = $("#body03>a>img");
+				list.bind("mouseover",function(event){
+					event = event || window.event;
+//					console.log(event.target.offsetLeft);  //dom对象
+					aim = event.target.offsetLeft;
+//					console.log(aim);
+					
+				});
+				list.bind("mouseout",function(event){
+					aim = target0;
+//					console.log(aim);
+				});
+//				
+//				$("a>img").animate({ 
+//				    width: "90%",
+//				    height: "100%", 
+//				    fontSize: "10em", 
+//				    borderWidth: 10
+//				  }, 1000 );
+
+				
+				
+			})
+			interval =window.setInterval("cycle()",1500);
+			
+			function cloud(){		
+//					console.log(aim);
+					target1+= (aim-target1)/10;
+					$("#im")[0].style.left = target1+"px";
+//					console.log($("#im")[0].style.left);
+					
+			}
+			window.setInterval("cloud()",10);
+			function searc(){
+				if(document.getElementById("in").value == "前端工程师"){
+					window.location.href = "index01.html";
+				}
+			}
+		</script>
+		
+	</head>
+
+	<body>
+		<div id="continer">
+			<div id="header">
+				<div id="header01">
+					<img style="float: left;margin: 5px 0px;" width="110" height="40" src="img/logo.png" />
+					<a style="float: left;margin: 16px 20px;"><b>北京</b><label>[切换城市]</label></a>
+					<div id="001" style="float: left; margin:16px 50px; ">
+						<a style="margin: 0px 20px">首页</a>
+						<a style="margin: 0px 20px">职位</a>
+						<a style="margin: 0px 20px">社区</a>
+					</div>
+					<a style="float: right; margin: 16px 5px;">手机猎聘</a>
+					<img src="imgMain/iphone01.png"style="float: right; margin: 14px 0px 16px 8px;" />
+					<span style="float: right; margin: 16px 10px;">|</span>
+					<a style="float: right; margin: 16px 10px;">我是企业HR</a>
+					<a style="float: right;margin: 16px 10px;">我是猎头</a>
+				</div>
+			</div>
+			<div id="body">
+				<div id="body01">
+					<div>
+						<div class="lun" id="lun0" style="display: block; width: 100%; height: 290px; background-image: url(imgMain/lun01.jpg);background-position: 50% 0px;
+							background-size：auto auto; no-repeat scroll center 0px;"></div>
+						<div class="lun" id="lun1" style="display: none; width: 100%; height: 290px; background-image: url(imgMain/lun02.jpg);background-position: 50% 0px;
+							background-size：auto auto; no-repeat scroll center 0px;"></div>
+						<div class="lun" id="lun2" style="display: none; width: 100%; height: 290px; background-image: url(imgMain/lun03.jpg);background-position: 50% 0px;
+							background-size：auto auto; no-repeat scroll center 0px;"></div>
+						<div class="lun" id="lun3" style="display: none; width: 100%; height: 290px; background-image: url(imgMain/lun04.jpg);background-position: 50% 0px;
+							background-size：auto auto; no-repeat scroll center 0px;"></div>
+					</div>
+					<div id="bodyPoint">
+						<div class="point" id="0" style="opacity: 1;width:16px; height:16px;line-height: 16px;text-align: center; background-image: url(imgMain/point.png);background-size：auto auto; 
+							no-repeat scroll center 0px;">1</div>
+						<div class="point"id="1" style="opacity: 0.3;width:16px; height:16px;line-height: 16px;text-align: center;background-image: url(imgMain/point.png);background-size：auto auto; 
+							no-repeat scroll center 0px;">2</div>
+						<div class="point"id="2" style="opacity: 0.3;width:16px; height:16px;line-height: 16px;text-align: center;background-image: url(imgMain/point.png);background-size：auto auto; 
+							no-repeat scroll center 0px;">3</div>
+						<div class="point"id="3" style="opacity: 0.3;width:16px; height:16px;line-height: 16px;text-align: center;background-image: url(imgMain/point.png);background-size：auto auto; 
+							no-repeat scroll center 0px;">4</div>
+					</div>
+				</div>	
+				<div id="body02">
+					<input id="in" style="float: left;line-height: 40px;background-color: white;width:540px;height: 38px; border:2px solid #CCCCCC;border-right: 0px; padding: 0px 10px;" type="text" placeholder='输入职位关键词: 如 销售总监等'/>
+					<button onclick="searc()" style="float: left;line-height: 40px;background-color: white;width: 103px;height: 42px; border: 0px;background-color: #3d9ccc;font-size: 16px;color: white;">
+						<img style="float: left;line-height: 40px;background-color: white;background-color: #3d9ccc;width: 32px;height: 32px;margin: 4px 0px 4px 4px;" src="img/search.png"/>搜索</button>
+					<div id="body02Job" style="width: 290px; line-height: 40px;background-color: #f6f6f6;float: right;border: 1px solid #f2f2f2;color: #999;">
+						<p style="padding: 0px 20px;">本周新增职位 <span>1</span><span>8</span><span>7</span><span>7</span><span>6</span> 个</p>
+					</div>
+					<div id="body02Class">
+						<a>Java</a><a>Flash</a><a>Python</a><a>Android</a><a>期货</a><a>保险</a><a>银行</a><a>产品经理</a><a>室内设计</a><a>土建工程师</a>
+					</div>
+				</div>
+				<div id="body03">
+					<img id="im" style="position: absolute;left:20px;width: 100px;height: 40px;opacity: 0.5;" src="pic/cloud.gif"></img>
+					<a><img src="ima_min/11.png"></img><b>IT·互联网</b></a>
+					<a><img src="ima_min/21.png"></img><b>房地产</b></a>
+					<a><img src="ima_min/31.png"></img><b>金 融</b></a>
+					<a><img src="ima_min/41.png"></img><b>消费品</b></a>
+					<a><img src="ima_min/51.png"></img><b>汽车·制造</b></a>
+					<a><img src="ima_min/61.png"></img><b style="border-right: 0px;" >医疗·化工</b></a>
+				</div>
+				<div class="body041">
+					<div class="body041Left"style="border-top: 5px solid #3ca2f2;">
+						<div class="body041Left1">
+							<h3>
+								<img src="ima_min/12.png" style="padding: 8px 15px 8px 0px;float: left;" />
+								<a>IT·互联网</a>
+							</h3>
+							<div class="itcla">
+								<a>Java</a>
+								<a>产品经理</a>
+								<a>Python</a>
+								<a>iOS</a>
+								<a>PHP</a>
+								<a>Android</a>
+								<a>UI设计师</a>
+								<a>Html5</a>
+							</div>
+							<div class="itpro">
+								<a>乐视</a>
+								<a>努比亚</a>
+								<a>易迅电商</a>
+								<a>小米</a>
+								<a>迅雷</a>
+								<a>招商银行</a>
+							</div>
+							<div class="itInter">
+								<a>进入IT·互联网分站</a>
+							</div>
+						</div>
+					</div>
+					<div class="body041Right">
+						<ul>
+							<li>
+								<a><img src="itimg/it1.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">PHP工程师</a></p> 
+									<p style="font-size: 14px;">18-30万<span style="font-size: 12px;margin-left: 8px;">上海-徐汇区</span></p> 
+									<p><a>齐数科技(上海)有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it2.jpg"/></a>
+								<div>
+									<p><a style="font-size: 16px;">高级前端开发工程师</a></p> 
+									<p style="font-size: 14px;">35-49万<span style="font-size: 12px;margin-left: 8px;">北京-朝阳区</span></p> 
+									<p><a>齐数科技(上海)有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it3.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">测试工程师</a></p> 
+									<p style="font-size: 14px;">12-24万<span style="font-size: 12px;margin-left: 8px;">上海-浦东新区</span></p> 
+									<p><a>普华永道信息技术(上海)有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it4.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">海外销售部长</a></p> 
+									<p style="font-size: 14px;">34-51万<span style="font-size: 12px;margin-left: 8px;">中山</span></p> 
+									<p><a>广东奥马电器股份有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it5.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">Solution Sales</a></p> 
+									<p style="font-size: 14px;">面议<span style="font-size: 12px;margin-left: 8px;">上海-徐汇区</span></p> 
+									<p><a>欧唯特信息系统有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it6.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">TCL区域销售-大客户方向</a></p> 
+									<p style="font-size: 14px;">15-30万<span style="font-size: 12px;margin-left: 8px;">上海</span></p> 
+									<p><a>广州科天智慧云信息科技有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it7.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">市场总监(000975)</a></p> 
+									<p style="font-size: 14px;">面议<span style="font-size: 12px;margin-left: 8px;">南京</span></p> 
+									<p><a>苏宁云商集团股份有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it8.jpg"/></a>
+								<div>
+									<p><a style="font-size: 16px;">Hadoop工程师</a></p> 
+									<p style="font-size: 14px;">15-25万<span style="font-size: 12px;margin-left: 8px;">北京-朝阳区</span></p> 
+									<p><a>北京五八到家信息技术有限公司</a></p> 
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				<!--第二个-->
+				<div class="body042">
+					<div class="body041Left"style="border-top: 5px solid #ef434c;">
+						<div class="body041Left1">
+							<h3>
+								<img src="ima_min/22.png" style="padding: 8px 15px 8px 0px;float: left;" />
+								<a style="color: red;">房地产</a>
+							</h3>
+							<div class="itcla">
+								<a>Java</a>
+								<a>产品经理</a>
+								<a>Python</a>
+								<a>iOS</a>
+								<a>PHP</a>
+								<a>Android</a>
+								<a>UI设计师</a>
+								<a>Html5</a>
+							</div>
+							<div class="itpro">
+								<a>乐视</a>
+								<a>努比亚</a>
+								<a>易迅电商</a>
+								<a>小米</a>
+								<a>迅雷</a>
+								<a>招商银行</a>
+							</div>
+							<div class="itInter">
+								<a>进入IT·互联网分站</a>
+							</div>
+						</div>
+					</div>
+					<div class="body041Right">
+						<ul>
+							<li>
+								<a><img src="itimg/it1.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">PHP工程师</a></p> 
+									<p style="font-size: 14px;">18-30万<span style="font-size: 12px;margin-left: 8px;">上海-徐汇区</span></p> 
+									<p><a>齐数科技(上海)有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it2.jpg"/></a>
+								<div>
+									<p><a style="font-size: 16px;">高级前端开发工程师</a></p> 
+									<p style="font-size: 14px;">35-49万<span style="font-size: 12px;margin-left: 8px;">北京-朝阳区</span></p> 
+									<p><a>齐数科技(上海)有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it3.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">测试工程师</a></p> 
+									<p style="font-size: 14px;">12-24万<span style="font-size: 12px;margin-left: 8px;">上海-浦东新区</span></p> 
+									<p><a>普华永道信息技术(上海)有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it4.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">海外销售部长</a></p> 
+									<p style="font-size: 14px;">34-51万<span style="font-size: 12px;margin-left: 8px;">中山</span></p> 
+									<p><a>广东奥马电器股份有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it5.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">Solution Sales</a></p> 
+									<p style="font-size: 14px;">面议<span style="font-size: 12px;margin-left: 8px;">上海-徐汇区</span></p> 
+									<p><a>欧唯特信息系统有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it6.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">TCL区域销售-大客户方向</a></p> 
+									<p style="font-size: 14px;">15-30万<span style="font-size: 12px;margin-left: 8px;">上海</span></p> 
+									<p><a>广州科天智慧云信息科技有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it7.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">市场总监(000975)</a></p> 
+									<p style="font-size: 14px;">面议<span style="font-size: 12px;margin-left: 8px;">南京</span></p> 
+									<p><a>苏宁云商集团股份有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it8.jpg"/></a>
+								<div>
+									<p><a style="font-size: 16px;">Hadoop工程师</a></p> 
+									<p style="font-size: 14px;">15-25万<span style="font-size: 12px;margin-left: 8px;">北京-朝阳区</span></p> 
+									<p><a>北京五八到家信息技术有限公司</a></p> 
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--第三个-->
+				<div class="body043">
+					<div class="body041Left"style="border-top: 5px solid #fdc00f;">
+						<div class="body041Left1">
+							<h3>
+								<img src="ima_min/31.png" style="padding: 8px 15px 8px 0px;float: left;" />
+								<a style="color: #fdc00f;">金融</a>
+							</h3>
+							<div class="itcla">
+								<a>Java</a>
+								<a>产品经理</a>
+								<a>Python</a>
+								<a>iOS</a>
+								<a>PHP</a>
+								<a>Android</a>
+								<a>UI设计师</a>
+								<a>Html5</a>
+							</div>
+							<div class="itpro">
+								<a>乐视</a>
+								<a>努比亚</a>
+								<a>易迅电商</a>
+								<a>小米</a>
+								<a>迅雷</a>
+								<a>招商银行</a>
+							</div>
+							<div class="itInter">
+								<a>进入IT·互联网分站</a>
+							</div>
+						</div>
+					</div>
+					<div class="body041Right">
+						<ul>
+							<li>
+								<a><img src="itimg/it1.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">PHP工程师</a></p> 
+									<p style="font-size: 14px;">18-30万<span style="font-size: 12px;margin-left: 8px;">上海-徐汇区</span></p> 
+									<p><a>齐数科技(上海)有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it2.jpg"/></a>
+								<div>
+									<p><a style="font-size: 16px;">高级前端开发工程师</a></p> 
+									<p style="font-size: 14px;">35-49万<span style="font-size: 12px;margin-left: 8px;">北京-朝阳区</span></p> 
+									<p><a>齐数科技(上海)有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it3.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">测试工程师</a></p> 
+									<p style="font-size: 14px;">12-24万<span style="font-size: 12px;margin-left: 8px;">上海-浦东新区</span></p> 
+									<p><a>普华永道信息技术(上海)有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it4.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">海外销售部长</a></p> 
+									<p style="font-size: 14px;">34-51万<span style="font-size: 12px;margin-left: 8px;">中山</span></p> 
+									<p><a>广东奥马电器股份有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it5.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">Solution Sales</a></p> 
+									<p style="font-size: 14px;">面议<span style="font-size: 12px;margin-left: 8px;">上海-徐汇区</span></p> 
+									<p><a>欧唯特信息系统有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it6.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">TCL区域销售-大客户方向</a></p> 
+									<p style="font-size: 14px;">15-30万<span style="font-size: 12px;margin-left: 8px;">上海</span></p> 
+									<p><a>广州科天智慧云信息科技有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it7.png"/></a>
+								<div>
+									<p><a style="font-size: 16px;">市场总监(000975)</a></p> 
+									<p style="font-size: 14px;">面议<span style="font-size: 12px;margin-left: 8px;">南京</span></p> 
+									<p><a>苏宁云商集团股份有限公司</a></p> 
+								</div>
+							</li>
+							<li>
+								<a><img src="itimg/it8.jpg"/></a>
+								<div>
+									<p><a style="font-size: 16px;">Hadoop工程师</a></p> 
+									<p style="font-size: 14px;">15-25万<span style="font-size: 12px;margin-left: 8px;">北京-朝阳区</span></p> 
+									<p><a>北京五八到家信息技术有限公司</a></p> 
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--热搜职位    名企职位-->
+				<div id="body05">
+					<h3 style="color: #333;font-weight: 700;">热门城市：</h3>
+					<p><a>上海招聘</a></p>
+					<p><a>北京招聘</a></p>
+					<p><a>深圳招聘</a></p>
+					<p><a>广州招聘</a></p>
+					<p><a>南京招聘</a></p>
+					<p><a>天津招聘</a></p>
+					<p><a>大连招聘</a></p>
+					<p><a>杭州招聘</a></p>
+					<p><a>上海招聘</a></p>
+					<p><a>北京招聘</a></p>
+					<p><a>深圳招聘</a></p>
+					<p><a>广州招聘</a></p>
+					<p><a>南京招聘</a></p>
+					<p><a>天津招聘</a></p>
+					<p><a>更多城市招聘</a></p>
+				</div>
+				<div id="body06">
+					<h3 style="color: #333;font-weight: 700;">热门行业：</h3>
+					<p><a>计算机硬件/网络设备招聘 </a></p>
+					<p><a>IT服务/系统集成招聘</a></p> 
+					<p><a>互联网/移动互联网/电子商务招聘</a></p>
+					<p><a>电子技术/半导体/集成电路招聘</a></p>
+					<p><a>通信(设备/运营/增值)招聘</a></p>
+					<p><a>网络游戏招聘</a></p>
+					<p><a>银行招聘</a></p>
+					<p><a>保险招聘</a></p>
+					<p><a>基金/证券/期货/投资招聘</a></p>
+					<p><a>会计/审计招聘</a></p>
+				</div>
+				<div id="body07">
+					<h3 style="color: #333;font-weight: 700;">友情链接：</h3>
+					<p><a>找工作</a></p>
+					<p><a>2016校园招聘</a></p> 
+					<p><a>求职网</a></p>
+					<p><a>人才网</a></p>
+					<p><a>招聘</a></p>
+				</div>
+
+			</div>
+		</div>
+
+	</body>
+
+</html>
